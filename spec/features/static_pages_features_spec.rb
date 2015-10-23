@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 feature 'static_pages' do
+	
 	context 'when on homepage' do
 		before(:each){ visit root_path }
 
@@ -16,6 +17,8 @@ feature 'static_pages' do
 			click_on 'Create a New Match'
 			expect(current_path).to eq new_match_path
 		end
+
+		xit "has a link to 'Matches in Progess' (unresolved matches)"
 
 	end
 end

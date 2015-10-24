@@ -1,18 +1,18 @@
-require 'faker'
+# require 'faker'
 
-FactoryGirl.define do
-  factory :league do
-    name Faker::Company.name
+# FactoryGirl.define do
+#   factory :league do
+#     name Faker::Company.name
 
-    factory :league_with_players do
-    	transient do
-    		players_count 4
-    	end
+#     factory :league_with_players do
+#     	transient do
+#     		players_count 4
+#     	end
 
-    	after(:create) do |league, evaluator|
-    		create_list(:player, evaluator.players_count, league: league)
-    	end
-    end
-  end
+#     	after(:create) do |league, evaluator|
+#     		create_list(:player, evaluator.players_count, league: league)
+#     	end
+#     end
+#   end
 
-end
+# end

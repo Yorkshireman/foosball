@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151030201017) do
+ActiveRecord::Schema.define(version: 20151030203323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,7 +26,18 @@ ActiveRecord::Schema.define(version: 20151030201017) do
   create_table "matches", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "league_id"
   end
+
+  add_index "matches", ["league_id"], name: "index_matches_on_league_id", using: :btree
+
+  create_table "matches_teams", id: false, force: :cascade do |t|
+    t.integer "match_id"
+    t.integer "team_id"
+  end
+
+  add_index "matches_teams", ["match_id"], name: "index_matches_teams_on_match_id", using: :btree
+  add_index "matches_teams", ["team_id"], name: "index_matches_teams_on_team_id", using: :btree
 
   create_table "players", force: :cascade do |t|
     t.string   "first_name"
@@ -38,10 +49,23 @@ ActiveRecord::Schema.define(version: 20151030201017) do
 
   add_index "players", ["league_id"], name: "index_players_on_league_id", using: :btree
 
+  create_table "players_teams", id: false, force: :cascade do |t|
+    t.integer "player_id"
+    t.integer "team_id"
+  end
+
+  add_index "players_teams", ["player_id"], name: "index_players_teams_on_player_id", using: :btree
+  add_index "players_teams", ["team_id"], name: "index_players_teams_on_team_id", using: :btree
+
   create_table "teams", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "league_id"
   end
 
+  add_index "teams", ["league_id"], name: "index_teams_on_league_id", using: :btree
+
+  add_foreign_key "matches", "leagues"
   add_foreign_key "players", "leagues"
+  add_foreign_key "teams", "leagues"
 end

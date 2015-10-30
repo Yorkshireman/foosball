@@ -1,3 +1,5 @@
 <!-- Make a helper to generate full name on form -->
-
-<!-- league.collection_select(:player_id, Player.all, :id, :first_name) -->
+<!-- Need to do a nested form, I think - have a box for Team 1 with multiple player-select (need empty team model), and another box for Team 2. Teams belong to Match, Match has_many Teams. -->
+<%= form_for @match do |f| %>
+	<%= f.collection_select(:player_ids, Player.all, :id, :first_name) %>
+<% end %>

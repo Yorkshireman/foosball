@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
 
   def create
   	league = League.find_by(name: params[:session][:name])
-  	session[:league_id] = league.id
+  	log_in(league)
   	redirect_to root_path
   	flash[:notice] = "You are logged in to #{current_league.name}"
   end

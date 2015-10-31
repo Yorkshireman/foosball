@@ -8,16 +8,12 @@ class MatchesController < ApplicationController
 		team1 = Team.create(league: current_league)
 		team2 = Team.create(league: current_league)
 		
-		params[:match][:team_1][:player_ids].each do |player_id|
-			unless player_id.to_i == 0
-				team1.players << Player.find(player_id.to_i)
-			end 
+		team_1_player_ids.each do |player_id|
+			team1.players << Player.find(player_id)
 		end
 
-		params[:match][:team_2][:player_ids].each do |player_id|
-			unless player_id.to_i == 0
-				team2.players << Player.find(player_id.to_i)
-			end
+		team_2_player_ids.each do |player_id|
+			team2.players << Player.find(player_id)
 		end
 
 		if match.save
@@ -26,5 +22,16 @@ class MatchesController < ApplicationController
 		end
 		
 		render nothing: true
+	end
+
+	
+	private
+
+	def team_1_player_ids
+		params[:match][:team_1][:player_ids] if params[:match] && params[:match][:team_1] && params[:match][:team_1][:player_ids]
+	end
+
+	def team_2_player_ids
+		params[:match][:team_2][:player_ids] if params[:match] && params[:match][:team_2] && params[:match][:team_2][:player_ids]	
 	end
 end

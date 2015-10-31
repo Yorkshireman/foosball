@@ -3,20 +3,10 @@ include SessionsHelper
 
 feature 'New Match Page' do
 	let(:league){ create(:league_with_players, players_count: 4) }
-	
-	before :each do
-		log_in league
-		visit new_match_path		
-	end
-
-	it "user can create a new match using existing players, creating one Team of one Person (test to be removed)" do
-		check("match_team_1_player_ids_" + "#{league.players[0].id}")
-		click_on 'Start Match'
-		expect(league.matches.count).to eq 1
-		expect(league.matches[0].teams[0].players).to include league.players[0]
-	end
 
 	it "user can create a new match using existing players, creating new unique Teams of 1 person per team" do
+		log_in league
+		visit new_match_path
 		check("match_team_1_player_ids_" + "#{league.players[0].id}")
 		check("match_team_2_player_ids_" + "#{league.players[1].id}")
 		click_on 'Start Match'
@@ -35,6 +25,8 @@ feature 'New Match Page' do
 	xit 'submitting form takes user to match show page'
 
 	xit "can't create a match with only one team"
+
+	xit "error handling for empty submissions and edge cases"
 
 	def log_in league
 		visit login_path

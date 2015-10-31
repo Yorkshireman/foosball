@@ -4,13 +4,14 @@ class MatchesController < ApplicationController
 	end
 
 	def create
-  	p "SESSION ID:"
-  	p session[:league_id]
-	  p "CURRENT_LEAGUE:"
-	  p current_league
 		@match = Match.new(league_id: current_league.id)
 		@team = Team.create(league_id: current_league.id)
-		@team.players << Player.find(params["match"]["teams"]["player_ids"].to_i)
+		
+		params[:match][:teams][:player_ids].each do |player_id|
+			unless player_id.to_i == 0
+				@team.players << Player.find(player_id.to_i)
+			end 
+		end
 
 		if @match.save
 			@match.teams << @team

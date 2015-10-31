@@ -7,9 +7,9 @@ feature 'New Match Page' do
 		league = create(:league_with_players, players_count: 4)
 		log_in(league)
 		visit new_match_path
-		select "#{league.players[0].first_name}", from: 'match_teams_player_ids'
+		check("#{league.players[0].name_with_initial}")
 		click_on 'Start Match'
-		
+
 		expect(league.matches.count).to eq 1
 		expect(league.matches.last.teams.count).to eq 1
 		expect(league.matches.last.teams.first.players).to include league.players[0]

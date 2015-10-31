@@ -18,11 +18,6 @@ feature 'static_pages' do
 			expect(current_path).to eq new_match_path
 		end
 
-		xit 'user can login to a league'
-			#league1 = create :league
-			#select league from collection select
-			#fill_in 'league[password]', with: 
-
 		xit "has a link to 'Matches in Progess' (unresolved matches)"
 
 	end

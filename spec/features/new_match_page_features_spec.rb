@@ -7,12 +7,9 @@ feature 'New Match Page' do
 		league = create(:league_with_players, players_count: 4)
 		log_in(league)
 		visit new_match_path
-
-		# select one player from Team 1 dropdown:
 		select "#{league.players[0].first_name}", from: 'match_teams_player_ids'
-		# expect{ click_on 'Start Match' }.to change{ [Match.all.count, Team.all.count, league.matches.last.teams.count, Player.count] }.by([1, 1, 1, 0])
-		
 		click_on 'Start Match'
+		
 		expect(league.matches.count).to eq 1
 		expect(league.matches.last.teams.count).to eq 1
 		expect(league.matches.last.teams.first.players).to include league.players[0]

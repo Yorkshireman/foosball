@@ -1,9 +1,14 @@
 <!-- Make a helper to generate full name on form -->
 <!-- Need to do a nested form, I think - have a box for Team 1 with multiple player-select (need empty team model), and another box for Team 2. Teams belong to Match, Match has_many Teams. -->
 <%= form_for @match do |f| %>
-	<%= f.fields_for :teams do |teams_form| %>
-		<%= teams_form.label "Team 1" %><br>
-		<%= teams_form.collection_check_boxes :player_ids, Player.all, :id, :name_with_initial %>
+	<%= f.fields_for :team_1 do |team_1_form| %>
+		<%= team_1_form.label "Team 1" %><br>
+		<%= team_1_form.collection_check_boxes :player_ids, Player.all, :id, :name_with_initial %>
+	<% end %>
+	<br>
+	<%= f.fields_for :team_2 do |team_2_form| %>
+		<%= team_2_form.label "Team 2" %><br>
+		<%= team_2_form.collection_check_boxes :player_ids, Player.all, :id, :name_with_initial %>
 	<% end %>
 	<br>
 	<%= f.submit "Start Match" %>

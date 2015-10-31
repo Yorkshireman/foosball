@@ -5,27 +5,28 @@ feature 'New Match Page' do
 
 	it "user can create a new match using existing players, creating one Team of one Person (test to be removed)" do
 		league = create(:league_with_players, players_count: 4)
-		log_in(league)
+		log_in league
 		visit new_match_path
-		check("#{league.players[0].name_with_initial}")
+		check("match_team_1_player_ids_" + "#{league.players[0].id}")
 		click_on 'Start Match'
 
 		expect(league.matches.count).to eq 1
-		expect(league.matches.last.teams.count).to eq 1
-		expect(league.matches.last.teams.first.players).to include league.players[0]
+		expect(league.matches[0].teams[0].players).to include league.players[0]
 	end
 
-	xit "user can create a new match using existing players, creating new Teams of 1 person per team"
-		# click_on 'Start Match'
-		# expect{ Match.count }.to have_changed.by 1
-		# expect{ Team.count }.to have_changed.by 2
-		# expect{ Match.last.teams.count }.to have_changed.by 2
-		# expect{ Player.count }.to have_changed.by 0
-		# expect(Match.last.teams.first.players).to include league.players[0]
-		# expect(Match.last.teams.first.players).to include league.players[1]
-		# expect(Match.last.teams.last.players).to  include league.players[2]
-		# expect(Match.last.teams.last.players).to  include league.players[3]
-		# expect(page).to have_content "Let the games begin!"
+	it "user can create a new match using existing players, creating new unique Teams of 1 person per team" do
+		league = create(:league_with_players, players_count: 4)
+		log_in league
+		visit new_match_path
+		check("match_team_1_player_ids_" + "#{league.players[0].id}")
+		check("match_team_2_player_ids_" + "#{league.players[1].id}")
+		click_on 'Start Match'
+
+		expect(league.matches.first.teams.first.players.first).to eq league.players[0]
+		expect(league.matches.first.teams.first.players.count).to eq 1
+		expect(league.matches.first.teams[1].players.first).to eq league.players[1]
+		expect(league.matches.first.teams[1].players.count).to eq 1		
+	end
 
 	xit "user can create a new match using existing players, creating new Teams of 2 people per team"
 
@@ -34,6 +35,8 @@ feature 'New Match Page' do
 	xit "user can create new players while creating a match"
 	
 	xit 'submitting form takes user to match show page'
+
+	xit "can't create a match with only one team"
 
 	def log_in league
 		visit login_path

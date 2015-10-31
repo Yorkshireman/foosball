@@ -4,9 +4,9 @@ class MatchesController < ApplicationController
 	end
 
 	def create
-		match = Match.new(league_id: current_league.id)
-		team1 = Team.create(league_id: current_league.id)
-		team2 = Team.create(league_id: current_league.id)
+		match = Match.new(league: current_league)
+		team1 = Team.create(league: current_league)
+		team2 = Team.create(league: current_league)
 		
 		params[:match][:team_1][:player_ids].each do |player_id|
 			unless player_id.to_i == 0

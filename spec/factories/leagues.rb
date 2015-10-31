@@ -3,7 +3,8 @@ require 'faker'
 FactoryGirl.define do
   factory :league do
     name Faker::Company.name
-    password_digest Faker::Lorem.characters(10)
+    password "passwordpassword"
+    password_confirmation "passwordpassword"
 
     factory :league_with_players do
     	transient do

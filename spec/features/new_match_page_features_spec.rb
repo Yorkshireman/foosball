@@ -2,26 +2,24 @@ require 'rails_helper'
 include SessionsHelper
 
 feature 'New Match Page' do
+	let(:league){ create(:league_with_players, players_count: 4) }
+	
+	before :each do
+		log_in league
+		visit new_match_path		
+	end
 
 	it "user can create a new match using existing players, creating one Team of one Person (test to be removed)" do
-		league = create(:league_with_players, players_count: 4)
-		log_in league
-		visit new_match_path
 		check("match_team_1_player_ids_" + "#{league.players[0].id}")
 		click_on 'Start Match'
-
 		expect(league.matches.count).to eq 1
 		expect(league.matches[0].teams[0].players).to include league.players[0]
 	end
 
 	it "user can create a new match using existing players, creating new unique Teams of 1 person per team" do
-		league = create(:league_with_players, players_count: 4)
-		log_in league
-		visit new_match_path
 		check("match_team_1_player_ids_" + "#{league.players[0].id}")
 		check("match_team_2_player_ids_" + "#{league.players[1].id}")
 		click_on 'Start Match'
-
 		expect(league.matches.first.teams.first.players.first).to eq league.players[0]
 		expect(league.matches.first.teams.first.players.count).to eq 1
 		expect(league.matches.first.teams[1].players.first).to eq league.players[1]

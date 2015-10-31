@@ -1,5 +1,9 @@
 <!-- Make a helper to generate full name on form -->
 <!-- Need to do a nested form, I think - have a box for Team 1 with multiple player-select (need empty team model), and another box for Team 2. Teams belong to Match, Match has_many Teams. -->
 <%= form_for @match do |f| %>
-	<%= f.collection_select(:player_ids, Player.all, :id, :first_name) %>
+	<%= f.fields_for :teams do |teams_form| %>
+		Team 1: <%= teams_form.collection_select(:player_ids, Player.all, :id, :first_name) %>
+	<% end %>
+
+	<%= f.submit "Start Match" %>
 <% end %>

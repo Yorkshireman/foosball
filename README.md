@@ -10,30 +10,30 @@ Your task is to create a Rails application that will allow someone to:
 - Show the game history  
 - Show the stats of an individual player  
 
-##Suggested Models  
+#Suggested Models  
 (feel free to model the application differently)  
   
-#Users  
+##Users  
   -  first_name  
   -  last_name  
   -  username  
 
-#Team  
+##Team  
   Has 1 or 2 people and play one match together  
 
-#Game  
+##Game  
   Has a score from 0 - 10  
 
-#Match  
+##Match  
   -  has one winning team  
   -  consists of 2 - 3 games (one team wins once they win 2 games)
 
-##Optional Extras  
+#Optional Extras  
 (these are just ideas - again, feel free to let your imagination go wild!)  
 - Show the best combination of players  
 - Show percentages (Win loss, best partner etc)  
   
-##Others  
+#Others  
 - Tests are encouraged  
 - A good UI makes for a better product! A well crafted UI is not a requirement, but is definitely a bonus point.  
   

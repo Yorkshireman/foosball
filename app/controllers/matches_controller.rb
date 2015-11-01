@@ -5,20 +5,10 @@ class MatchesController < ApplicationController
 
 	def create
 		match = Match.new(league: current_league)
-		team1 = Team.create(league: current_league)
-		team2 = Team.create(league: current_league)
-		
-		team_1_player_ids.each do |player_id|
-			team1.players << Player.find(player_id)
-		end
-
-		team_2_player_ids.each do |player_id|
-			team2.players << Player.find(player_id)
-		end
+		teams = BuildTeams.call(team_1_player_ids, team_2_player_ids, current_league)
 
 		if match.save
-			match.teams << team1
-			match.teams << team2
+			teams.map {|team| match.teams << team}
 		end
 		
 		render nothing: true

@@ -6,11 +6,8 @@ class MatchesController < ApplicationController
 	def create
 		match = Match.new(league: current_league)
 		teams = BuildTeams.call(team_1_player_ids, team_2_player_ids, current_league)
-
-		if match.save
-			teams.map {|team| match.teams << team}
-		end
-		
+		teams.map {|team| match.teams << team}
+		match.save
 		render nothing: true
 	end
 

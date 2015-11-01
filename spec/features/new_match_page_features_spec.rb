@@ -2,21 +2,31 @@ require 'rails_helper'
 include SessionsHelper
 
 feature 'New Match Page' do
-	let(:league){ create(:league_with_players, players_count: 4) }
+	let(:test_league){ create(:league_with_players, players_count: 4) }
 
 	it "user can create a new match using existing players, creating new unique Teams of 1 person per team" do
-		log_in league
+		log_in test_league
 		visit new_match_path
-		check("match_team_1_player_ids_" + "#{league.players[0].id}")
-		check("match_team_2_player_ids_" + "#{league.players[1].id}")
+		select_player("team_1", test_league.players[0])
+		select_player("team_2", test_league.players[1])
 		click_on 'Start Match'
-		expect(league.matches.first.teams.first.players.first).to eq league.players[0]
-		expect(league.matches.first.teams.first.players.count).to eq 1
-		expect(league.matches.first.teams[1].players.first).to eq league.players[1]
-		expect(league.matches.first.teams[1].players.count).to eq 1		
+
+		expect(test_league.matches.first.teams[0].players).to eq [test_league.players[0]]
+		expect(test_league.matches.first.teams[1].players).to eq [test_league.players[1]]
 	end
 
-	xit "user can create a new match using existing players, creating new Teams of 2 people per team"
+	it "user can create a new match using existing players, creating new Teams of 2 people per team" do
+		log_in test_league
+		visit new_match_path
+		select_player("team_1", test_league.players[0])
+		select_player("team_1", test_league.players[1])
+		select_player("team_2", test_league.players[2])
+		select_player("team_2", test_league.players[3])
+		click_on 'Start Match'
+		
+		expect(test_league.matches.first.teams[0].players).to eq [test_league.players[0], test_league.players[1]]
+		expect(test_league.matches.first.teams[1].players).to eq [test_league.players[2], test_league.players[3]]
+	end
 
 	xit "user can create a new match using existing players, creating one team of 1 person and one team of 2 people"
 
@@ -28,10 +38,18 @@ feature 'New Match Page' do
 
 	xit "error handling for empty submissions and edge cases"
 
-	def log_in league
+
+	private
+
+	def log_in(league)
 		visit login_path
 		fill_in 'session[name]', with: "#{league.name}"
 		fill_in 'session[password]', with: "#{league.password}"
 		click_on 'Log in'
+	end
+
+	def select_player(team, player)
+		player_index = player.league.players.index(player) 
+		check("match_" + team + "_player_ids_" + "#{test_league.players[player_index].id}")
 	end
 end

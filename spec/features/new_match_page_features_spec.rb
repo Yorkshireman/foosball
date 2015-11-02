@@ -46,7 +46,7 @@ feature 'New Match Page' do
 		select_player("team_1", test_league.players[0])
 		click_on 'Start Match'
 		expect(Match.count).to eq 0
-		expect(page).to have_content("Please select players for Team 2")
+		expect(page).to have_content("Please select players both teams")
 	end
 
 	xit "error handling for empty submissions and edge cases"

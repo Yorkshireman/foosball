@@ -4,11 +4,17 @@ class MatchesController < ApplicationController
 	end
 
 	def create
-		match = Match.new(league: current_league)
-		teams = BuildTeams.call(team_1_player_ids, team_2_player_ids, current_league)
-		teams.map {|team| match.teams << team}
-		match.save
-		render nothing: true
+		@match = Match.new(league: current_league)
+
+		if team_1_player_ids != nil && team_2_player_ids != nil
+			teams = BuildTeams.call(team_1_player_ids, team_2_player_ids, current_league)
+			teams.map {|team| @match.teams << team}
+			@match.save
+			render nothing: true
+		else
+			flash[:alert] = "Please select players for both teams"
+			render :new
+		end
 	end
 
 	

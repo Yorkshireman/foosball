@@ -2,7 +2,9 @@ require 'rails_helper'
 include SessionsHelper
 
 feature 'New Match Page' do
+
 	let(:test_league){ create(:league_with_players, players_count: 4) }
+
 	before :each do
 		log_in test_league
 		visit new_match_path
@@ -46,7 +48,7 @@ feature 'New Match Page' do
 		select_player("team_1", test_league.players[0])
 		click_on 'Start Match'
 		expect(Match.count).to eq 0
-		expect(page).to have_content("Please select players both teams")
+		expect(page).to have_content("Please select players for both teams")
 	end
 
 	xit "error handling for empty submissions and edge cases"

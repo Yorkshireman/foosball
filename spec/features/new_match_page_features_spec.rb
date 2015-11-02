@@ -3,10 +3,12 @@ include SessionsHelper
 
 feature 'New Match Page' do
 	let(:test_league){ create(:league_with_players, players_count: 4) }
-
-	it "user can create a new match using existing players, creating new unique Teams of 1 person per team" do
+	before :each do
 		log_in test_league
 		visit new_match_path
+	end
+
+	it "user can create a new match using existing players, creating new unique Teams of 1 person per team" do
 		select_player("team_1", test_league.players[0])
 		select_player("team_2", test_league.players[1])
 		click_on 'Start Match'
@@ -16,19 +18,25 @@ feature 'New Match Page' do
 	end
 
 	it "user can create a new match using existing players, creating new Teams of 2 people per team" do
-		log_in test_league
-		visit new_match_path
 		select_player("team_1", test_league.players[0])
 		select_player("team_1", test_league.players[1])
 		select_player("team_2", test_league.players[2])
 		select_player("team_2", test_league.players[3])
 		click_on 'Start Match'
-		
+
 		expect(test_league.matches.first.teams[0].players).to eq [test_league.players[0], test_league.players[1]]
 		expect(test_league.matches.first.teams[1].players).to eq [test_league.players[2], test_league.players[3]]
 	end
 
-	xit "user can create a new match using existing players, creating one team of 1 person and one team of 2 people"
+	it "user can create a new match using existing players, creating one team of 1 person and one team of 2 people" do
+		select_player("team_1", test_league.players[0])
+		select_player("team_2", test_league.players[2])
+		select_player("team_2", test_league.players[3])
+		click_on 'Start Match'
+
+		expect(test_league.matches.first.teams[0].players).to eq [test_league.players[0]]
+		expect(test_league.matches.first.teams[1].players).to eq [test_league.players[2], test_league.players[3]]
+	end
 
 	xit "user can create new players while creating a match"
 	

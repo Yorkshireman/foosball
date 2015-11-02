@@ -42,7 +42,12 @@ feature 'New Match Page' do
 	
 	xit 'submitting form takes user to match show page'
 
-	xit "can't create a match with only one team"
+	it "can't create a match with only one team" do
+		select_player("team_1", test_league.players[0])
+		click_on 'Start Match'
+		expect(Match.count).to eq 0
+		expect(page).to have_content("Please select players for Team 2")
+	end
 
 	xit "error handling for empty submissions and edge cases"
 

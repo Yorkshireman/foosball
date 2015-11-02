@@ -8,7 +8,7 @@ class MatchesController < ApplicationController
 
 		if team_1_player_ids && team_2_player_ids
 			teams = BuildTeams.call team_1_player_ids, team_2_player_ids, current_league
-			teams.map {|team| @match.teams << team}
+			InsertTeamsIntoMatch.call teams, @match
 			@match.save
 			render nothing: true
 		else
@@ -21,10 +21,10 @@ class MatchesController < ApplicationController
 	private
 
 	def team_1_player_ids
-		params[:match][:team_1][:player_ids] if params[:match] && params[:match][:team_1] && params[:match][:team_1][:player_ids]
+		params[:match] && params[:match][:team_1] && params[:match][:team_1][:player_ids]
 	end
 
 	def team_2_player_ids
-		params[:match][:team_2][:player_ids] if params[:match] && params[:match][:team_2] && params[:match][:team_2][:player_ids]	
+		params[:match] && params[:match][:team_2] && params[:match][:team_2][:player_ids]
 	end
 end

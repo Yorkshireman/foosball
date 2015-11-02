@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
 	  	flash[:notice] = "You are logged in to #{current_league.name}"
 	  else
 	  	flash[:alert] = "Invalid League Name/Password combination"
-	  	render 'new'
+	  	render :new
 		end
   end
 end

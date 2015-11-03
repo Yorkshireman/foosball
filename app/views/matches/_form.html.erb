@@ -3,12 +3,12 @@
 <%= form_for @match do |f| %>
 	<%= f.fields_for :team_1 do |team_1_form| %>
 		<%= team_1_form.label "Team 1" %><br>
-		<%= team_1_form.collection_check_boxes :player_ids, Player.all, :id, :name_with_initial, include_hidden: false %>
+		<%= team_1_form.collection_check_boxes :player_ids, Player.all, :id, :name, include_hidden: false %>
 	<% end %>
 	<br>
 	<%= f.fields_for :team_2 do |team_2_form| %>
 		<%= team_2_form.label "Team 2" %><br>
-		<%= team_2_form.collection_check_boxes :player_ids, Player.all, :id, :name_with_initial, include_hidden: false %>
+		<%= team_2_form.collection_check_boxes :player_ids, Player.all, :id, :name, include_hidden: false %>
 	<% end %>
 	<br>
 	<%= f.submit "Start Match" %>

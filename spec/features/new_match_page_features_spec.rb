@@ -40,7 +40,14 @@ feature 'New Match Page' do
 		expect(test_league.matches.first.teams[1].players).to eq [test_league.players[2], test_league.players[3]]
 	end
 
-	xit "user can create new players while creating a match"
+	it "user can create new players while creating a match" do
+		fill_in 'player[name]', with: "Test Player"
+		click_on 'Create Player'
+		expect(test_league.players.count).to eq 5
+		expect(page).to have_content "Test Player"
+	end
+
+	xit 'test for incorrect player submissions, edge cases, maybe sanitize player params'
 	
 	xit 'submitting form takes user to match show page'
 

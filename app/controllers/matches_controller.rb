@@ -1,9 +1,11 @@
 class MatchesController < ApplicationController
 	def new
+		@player = Player.new
 		@match = Match.new
 	end
 
 	def create
+		@player = Player.new
 		@match = Match.new(league: current_league)
 
 		if team_1_player_ids && team_2_player_ids

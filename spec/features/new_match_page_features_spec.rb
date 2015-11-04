@@ -40,7 +40,7 @@ feature 'New Match Page' do
 		expect(test_league.matches.first.teams[1].players).to eq [test_league.players[2], test_league.players[3]]
 	end
 
-	it "user can create new players while creating a match" do
+	it "user can create new players while creating a match", js: true do
 		fill_in 'player[name]', with: "Test Player"
 		click_on 'Create Player'
 		expect(test_league.players.count).to eq 5

@@ -1,9 +1,3 @@
-<!-- render player form as a partial? Might be necessary and/or easier for ajax updating -->
-<%= form_for @player do |f| %>
-	<%= f.text_field :name %>
-	<%= f.submit 'Create Player' %>
-<% end %>
-
 <%= form_for @match do |f| %>
 	<%= f.fields_for :team_1 do |team_1_form| %>
 		<%= team_1_form.label "Team 1" %><br>

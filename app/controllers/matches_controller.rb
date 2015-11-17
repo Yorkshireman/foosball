@@ -1,6 +1,7 @@
 class MatchesController < ApplicationController
 	def new
-		@cat = Player.new
+		@player = Player.new
+		@players = Player.all
 		@match = Match.new
 	end
 

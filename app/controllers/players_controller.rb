@@ -1,7 +1,8 @@
 class PlayersController < ApplicationController
 	def create
-		@dog = Player.create(name: params[:player][:name], league: current_league)
-		current_league.players << @dog
+		@match = Match.new(league: current_league)
+		@player = Player.create(name: params[:player][:name], league: current_league)
+		current_league.players << @player
 		respond_to do |format|
 			format.js	{}
 		end

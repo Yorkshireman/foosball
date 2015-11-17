@@ -1,3 +1,2 @@
-$("<%= escape_javascript(render @dog) %>").appendTo("#new_match");
-
-// $('#new_match').replaceWith("<p>Replaced</p>");
+$("<%= escape_javascript(render @player) %>").appendTo("#new_match");
+$('#new_match').html("<%= escape_javascript(render partial: 'matches/form') %>");

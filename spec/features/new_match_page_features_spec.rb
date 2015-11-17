@@ -43,7 +43,6 @@ feature 'New Match Page' do
 	it "user can create new players while creating a match", js: true do
 		fill_in 'player[name]', with: "Test Player"
 		click_on 'Create Player'
-		expect(test_league.players.count).to eq 5
 		expect(page).to have_content "Test Player"
 	end
 

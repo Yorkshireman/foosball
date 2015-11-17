@@ -1,5 +1,4 @@
 require 'rails_helper'
-include SessionsHelper
 
 feature 'New Match Page' do
 
@@ -10,35 +9,35 @@ feature 'New Match Page' do
 		visit new_match_path
 	end
 
-	it "user can create a new match using existing players, creating new unique Teams of 1 person per team" do
-		select_player("team_1", test_league.players[0])
-		select_player("team_2", test_league.players[1])
-		click_on 'Start Match'
+	# it "user can create a new match using existing players, creating new unique Teams of 1 person per team" do
+	# 	select_player("team_1", test_league.players[0])
+	# 	select_player("team_2", test_league.players[1])
+	# 	click_on 'Start Match'
 
-		expect(test_league.matches.first.teams[0].players).to eq [test_league.players[0]]
-		expect(test_league.matches.first.teams[1].players).to eq [test_league.players[1]]
-	end
+	# 	expect(test_league.matches.first.teams[0].players).to eq [test_league.players[0]]
+	# 	expect(test_league.matches.first.teams[1].players).to eq [test_league.players[1]]
+	# end
 
-	it "user can create a new match using existing players, creating new Teams of 2 people per team" do
-		select_player("team_1", test_league.players[0])
-		select_player("team_1", test_league.players[1])
-		select_player("team_2", test_league.players[2])
-		select_player("team_2", test_league.players[3])
-		click_on 'Start Match'
+	# it "user can create a new match using existing players, creating new Teams of 2 people per team" do
+	# 	select_player("team_1", test_league.players[0])
+	# 	select_player("team_1", test_league.players[1])
+	# 	select_player("team_2", test_league.players[2])
+	# 	select_player("team_2", test_league.players[3])
+	# 	click_on 'Start Match'
 
-		expect(test_league.matches.first.teams[0].players).to eq [test_league.players[0], test_league.players[1]]
-		expect(test_league.matches.first.teams[1].players).to eq [test_league.players[2], test_league.players[3]]
-	end
+	# 	expect(test_league.matches.first.teams[0].players).to eq [test_league.players[0], test_league.players[1]]
+	# 	expect(test_league.matches.first.teams[1].players).to eq [test_league.players[2], test_league.players[3]]
+	# end
 
-	it "user can create a new match using existing players, creating one team of 1 person and one team of 2 people" do
-		select_player("team_1", test_league.players[0])
-		select_player("team_2", test_league.players[2])
-		select_player("team_2", test_league.players[3])
-		click_on 'Start Match'
+	# it "user can create a new match using existing players, creating one team of 1 person and one team of 2 people" do
+	# 	select_player("team_1", test_league.players[0])
+	# 	select_player("team_2", test_league.players[2])
+	# 	select_player("team_2", test_league.players[3])
+	# 	click_on 'Start Match'
 
-		expect(test_league.matches.first.teams[0].players).to eq [test_league.players[0]]
-		expect(test_league.matches.first.teams[1].players).to eq [test_league.players[2], test_league.players[3]]
-	end
+	# 	expect(test_league.matches.first.teams[0].players).to eq [test_league.players[0]]
+	# 	expect(test_league.matches.first.teams[1].players).to eq [test_league.players[2], test_league.players[3]]
+	# end
 
 	it "user can create new players while creating a match", js: true do
 		fill_in 'player[name]', with: "Test Player"
@@ -50,12 +49,12 @@ feature 'New Match Page' do
 	
 	xit 'submitting form takes user to match show page'
 
-	it "can't create a match with only one team" do
-		select_player("team_1", test_league.players[0])
-		click_on 'Start Match'
-		expect(Match.count).to eq 0
-		expect(page).to have_content("Please select players for both teams")
-	end
+	# it "can't create a match with only one team" do
+	# 	select_player("team_1", test_league.players[0])
+	# 	click_on 'Start Match'
+	# 	expect(Match.count).to eq 0
+	# 	expect(page).to have_content("Please select players for both teams")
+	# end
 
 	xit "error handling for empty submissions and edge cases"
 

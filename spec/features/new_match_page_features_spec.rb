@@ -49,7 +49,8 @@ feature 'New Match Page' do
 	it "user can create new players while creating a match", js: true do
 		fill_in 'player[name]', with: "Test Player"
 		click_on 'Create Player'
-		expect(page).to have_content "Test Player"
+		expect(page).to have_css('label', text: "Test Player")
+		expect(page).to have_selector('input', count: 13)
 	end
 
 	xit 'test for incorrect player submissions, edge cases, maybe sanitize player params'

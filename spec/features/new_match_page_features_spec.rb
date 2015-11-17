@@ -39,6 +39,13 @@ feature 'New Match Page' do
 		expect(test_league.matches.first.teams[1].players).to eq [test_league.players[2], test_league.players[3]]
 	end
 
+	it "can't create a match with only one team" do
+		select_player("team_1", test_league.players[0])
+		click_on 'Start Match'
+		expect(Match.count).to eq 0
+		expect(page).to have_content("Please select players for both teams")
+	end
+
 	it "user can create new players while creating a match", js: true do
 		fill_in 'player[name]', with: "Test Player"
 		click_on 'Create Player'
@@ -48,13 +55,6 @@ feature 'New Match Page' do
 	xit 'test for incorrect player submissions, edge cases, maybe sanitize player params'
 	
 	xit 'submitting form takes user to match show page'
-
-	# it "can't create a match with only one team" do
-	# 	select_player("team_1", test_league.players[0])
-	# 	click_on 'Start Match'
-	# 	expect(Match.count).to eq 0
-	# 	expect(page).to have_content("Please select players for both teams")
-	# end
 
 	xit "error handling for empty submissions and edge cases"
 

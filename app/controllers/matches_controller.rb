@@ -15,6 +15,7 @@ class MatchesController < ApplicationController
 			render nothing: true
 		else
 			flash[:alert] = "Please select players for both teams"
+			@player = Player.new
 			render :new
 		end
 	end

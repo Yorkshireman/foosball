@@ -64,7 +64,13 @@ feature 'New Match Page' do
 
 	xit 'test for incorrect player submissions, edge cases, maybe sanitize player params'
 	
-	xit 'submitting form takes user to match show page'
+	it 'submitting form takes user to match show page' do
+		select_player("team_1", test_league.players[0])
+		select_player("team_2", test_league.players[3])
+		click_on 'Start Match'
+		match = Match.last
+		expect(current_path).to eq match_path(match) 		
+	end
 
 	xit "error handling for empty submissions and edge cases"
 

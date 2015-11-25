@@ -12,12 +12,15 @@ class MatchesController < ApplicationController
 			teams = BuildTeams.call team_1_player_ids, team_2_player_ids, current_league
 			InsertTeamsIntoMatch.call teams, @match
 			@match.save
-			render nothing: true
+			redirect_to match_path(@match)
 		else
 			flash[:alert] = "Please select players for both teams"
 			@player = Player.new
 			redirect_to new_match_path
 		end
+	end
+
+	def show
 	end
 
 	

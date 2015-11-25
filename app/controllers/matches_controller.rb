@@ -16,7 +16,7 @@ class MatchesController < ApplicationController
 		else
 			flash[:alert] = "Please select players for both teams"
 			@player = Player.new
-			render :new
+			redirect_to new_match_path
 		end
 	end
 

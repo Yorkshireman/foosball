@@ -44,6 +44,14 @@ feature 'New Match Page' do
 		click_on 'Start Match'
 		expect(Match.count).to eq 0
 		expect(page).to have_content("Please select players for both teams")
+		expect(current_path).to eq new_match_path
+	end
+
+	it "can't create a match with no teams/players" do
+		click_on 'Start Match'
+		expect(Match.count).to eq 0
+		expect(page).to have_content("Please select players for both teams")
+		expect(current_path).to eq new_match_path
 	end
 
 	it "user can create new players while creating a match", js: true do
@@ -52,6 +60,7 @@ feature 'New Match Page' do
 		expect(page).to have_css('label', text: "Test Player")
 		expect(page).to have_selector('input', count: 13)
 	end
+
 
 	xit 'test for incorrect player submissions, edge cases, maybe sanitize player params'
 	

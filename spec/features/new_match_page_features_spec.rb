@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'New Match Page' do
+feature 'New Match Features' do
 
 	let(:test_league){ create(:league_with_players, players_count: 4) }
 
@@ -16,6 +16,13 @@ feature 'New Match Page' do
 
 		expect(test_league.matches.first.teams[0].players).to eq [test_league.players[0]]
 		expect(test_league.matches.first.teams[1].players).to eq [test_league.players[1]]
+	end
+
+	it "when a user creates a match, three games are created within it" do
+		select_player("team_1", test_league.players[0])
+		select_player("team_2", test_league.players[1])
+		click_on 'Start Match'
+		expect(Match.last.games.count).to eq 3
 	end
 
 	it "user can create a new match using existing players, creating new Teams of 2 people per team" do

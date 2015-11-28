@@ -76,7 +76,8 @@ feature 'New Match Features' do
 		select_player("team_2", test_league.players[3])
 		click_on 'Start Match'
 		match = Match.last
-		expect(current_path).to eq match_path(match) 		
+		expect(current_path).to eq match_path(match)
+		expect(page).to have_content "Let the games begin!"	
 	end
 
 	xit "error handling for empty submissions and edge cases"

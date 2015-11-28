@@ -12,7 +12,8 @@ class MatchesController < ApplicationController
 			teams = BuildTeams.call team_1_player_ids, team_2_player_ids, current_league
 			InsertTeamsIntoMatch.call teams, @match
 			@match.save
-			redirect_to match_path(@match)
+			3.times{ @match.games.create }
+			redirect_to @match
 		else
 			flash[:alert] = "Please select players for both teams"
 			@player = Player.new
@@ -21,6 +22,7 @@ class MatchesController < ApplicationController
 	end
 
 	def show
+		@match = Match.find(params[:id])
 	end
 
 	

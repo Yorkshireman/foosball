@@ -14,6 +14,7 @@ class MatchesController < ApplicationController
 			@match.save
 			3.times{ @match.games.create }
 			redirect_to @match
+			flash[:notice] = "Let the games begin!"
 		else
 			flash[:alert] = "Please select players for both teams"
 			@player = Player.new

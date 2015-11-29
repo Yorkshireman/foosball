@@ -1,4 +1,4 @@
-class MatchWinningTeamNames
+class WinningTeamNames
 	def self.call match
 		names = ""
 		winning_team = Team.find(match.winning_team_id)

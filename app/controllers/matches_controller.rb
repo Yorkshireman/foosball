@@ -35,25 +35,14 @@ class MatchesController < ApplicationController
 			flash[:alert] = "Ensure you have selected a winning team for every game"
 			render :show
 		else
-			update_match_scores(@match, params)
-			update_match_winning_team_id(@match, params)
+			ScoreMatch.new(@match, params).call
 			redirect_to root_path
-			flash[:notice] = "Match Winner and scores updated. Well done #{MatchWinningTeamNames.call(@match)}!"
+			flash[:notice] = "Match Winner and scores updated. Well done #{WinningTeamNames.call(@match)}!"
 		end
 	end
 
 	
 	private
-
-	def update_match_winning_team_id match, params
-		match.update_attributes(winning_team_id: winning_team_id(params))	
-	end
-
-	def update_match_scores match, params
-		match.games[0].update_attributes(winning_score: params[:game_1_score].to_i)
-		match.games[1].update_attributes(winning_score: params[:game_2_score].to_i)
-		match.games[2].update_attributes(winning_score: params[:game_3_score].to_i)
-	end
 
 	def any_blank_scores? params
 		params[:game_1_score] == "" || params[:game_2_score] == "" || params[:game_3_score] == ""
@@ -61,16 +50,6 @@ class MatchesController < ApplicationController
 
 	def any_blank_winning_teams? params
 		params[:game_1_winning_team_id] == "" || params[:game_2_winning_team_id] == "" || params[:game_3_winning_team_id] == ""
-	end
-
-	def winning_team_id(params)
-		winning_teams_ids = [params[:game_1_winning_team_id].to_i, params[:game_2_winning_team_id].to_i, params[:game_3_winning_team_id].to_i]
-		
-		winning_teams_ids.each do |x|
-			id_index = winning_teams_ids.index(x)
-			id = winning_teams_ids.slice!(id_index)
-			return id if winning_teams_ids.any? { |y| y == id }
-		end
 	end
 
 	def team_1_player_ids

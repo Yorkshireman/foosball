@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   resources :matches
   resources :players
+  resources :games
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

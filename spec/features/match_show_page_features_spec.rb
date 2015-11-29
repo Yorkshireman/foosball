@@ -24,7 +24,17 @@ feature 'Match Show Page' do
 		expect(page).to have_content "#{test_league.players[3].name}"
 	end
 
-	xit "has a winner select radio button and a winning-team score input field"
+	it "form submission updates match scores and takes you to home page" do
+		find('#game_1_score').find(:xpath, 'option[1]').select_option
+		find('#game_2_score').find(:xpath, 'option[2]').select_option
+		find('#game_3_score').find(:xpath, 'option[1]').select_option
+		click_on 'Update'
+		expect(Match.last.games[0].winning_score).to eq 6
+		expect(Match.last.games[1].winning_score).to eq 7
+		expect(Match.last.games[0].winning_score).to eq 6
+		expect(current_path).to eq root_path
+		expect(page).to have_content "Match scores updated"
+	end
 
 
 	private

@@ -6,6 +6,24 @@
 
 <h2>Face off!</h2>
 
-<% @match.games.each do |game| %>
-	<p>Game <%= (@match.games.index(game) + 1) %></p>
+<%= form_for @match do |f| %>
+	<h3>Game 1</h3>
+	<%= f.fields_for :game_1 do |game_1_form| %>
+		<%= game_1_form.label "Winning Team's Score" %>
+		<%= select_tag(:game_1_score, options_for_select([['6', 6], ['7', 7], ['8', 8], ['9', 9], ['10', 10]])) %>
+	<% end %>
+
+	<h3>Game 2</h3>
+	<%= f.fields_for :game_2 do |game_2_form| %>
+		<%= game_2_form.label "Winning Team's Score" %>
+		<%= select_tag(:game_2_score, options_for_select([['6', 6], ['7', 7], ['8', 8], ['9', 9], ['10', 10]])) %>
+	<% end %>
+
+	<h3>Game 3</h3>
+	<%= f.fields_for :game_3 do |game_3_form| %>
+		<%= game_3_form.label "Winning Team's Score" %>
+		<%= select_tag(:game_3_score, options_for_select([['6', 6], ['7', 7], ['8', 8], ['9', 9], ['10', 10]])) %>
+	<% end %>
+	<br>	
+	<%= f.submit %>
 <% end %>

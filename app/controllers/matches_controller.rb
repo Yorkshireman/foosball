@@ -26,6 +26,15 @@ class MatchesController < ApplicationController
 		@match = Match.find(params[:id])
 	end
 
+	def update
+		match = Match.find(params[:id])
+		match.games[0].update_attributes(winning_score: params[:game_1_score].to_i)
+		match.games[1].update_attributes(winning_score: params[:game_2_score].to_i)
+		match.games[2].update_attributes(winning_score: params[:game_3_score].to_i)
+		redirect_to root_path
+		flash[:notice] = "Match scores updated"
+	end
+
 	
 	private
 

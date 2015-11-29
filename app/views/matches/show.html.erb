@@ -1,7 +1,13 @@
-<% @match.teams.each do |team| %>
-	<% team.players.each do |player| %>
-		<h3><%= player.name %></h3>
-	<% end %>
+<% if @match.teams[0].players.count == 2 %>
+	<h3><%= @match.teams[0].players[0].name %> & <%= @match.teams[0].players[1].name %></h3>
+<% else %>
+	<h3><%= @match.teams[0].players[0].name %></h3>
+<% end %>
+<h4>vs</h4>
+<% if @match.teams[1].players.count == 2 %>
+	<h3><%= @match.teams[1].players[0].name %> & <%= @match.teams[1].players[1].name %></h3>
+<% else %>
+	<h3><%= @match.teams[1].players[0].name %></h3>
 <% end %>
 
 <h2>Face off!</h2>
@@ -12,7 +18,7 @@
 		<%= game_1_form.label "Winning Team's Score" %>
 		<%= select_tag(:game_1_score, options_for_select([['6', 6], ['7', 7], ['8', 8], ['9', 9], ['10', 10]]), include_blank: true) %>
 		<%= game_1_form.label "Winning Team" %>
-		<%= select_tag(:game_1_winning_team_id, options_for_select(match_teams(@match))) %>
+		<%= select_tag(:game_1_winning_team_id, options_for_select(match_teams(@match)), prompt: '<select>') %>
 	<% end %>
 
 	<h3>Game 2</h3>
@@ -20,7 +26,7 @@
 		<%= game_2_form.label "Winning Team's Score" %>
 		<%= select_tag(:game_2_score, options_for_select([['6', 6], ['7', 7], ['8', 8], ['9', 9], ['10', 10]]), include_blank: true) %>
 		<%= game_2_form.label "Winning Team" %>
-		<%= select_tag(:game_2_winning_team_id, options_for_select(match_teams(@match))) %>
+		<%= select_tag(:game_2_winning_team_id, options_for_select(match_teams(@match)), prompt: '<select>') %>
 	<% end %>
 
 	<h3>Game 3</h3>
@@ -28,7 +34,7 @@
 		<%= game_3_form.label "Winning Team's Score" %>
 		<%= select_tag(:game_3_score, options_for_select([['6', 6], ['7', 7], ['8', 8], ['9', 9], ['10', 10]]), include_blank: true) %>
 		<%= game_3_form.label "Winning Team" %>
-		<%= select_tag(:game_3_winning_team_id, options_for_select(match_teams(@match))) %>
+		<%= select_tag(:game_3_winning_team_id, options_for_select(match_teams(@match)), prompt: '<select>') %>
 	<% end %>
 	<br>	
 	<%= f.submit %>

@@ -31,12 +31,23 @@ class MatchesController < ApplicationController
 		match.games[0].update_attributes(winning_score: params[:game_1_score].to_i)
 		match.games[1].update_attributes(winning_score: params[:game_2_score].to_i)
 		match.games[2].update_attributes(winning_score: params[:game_3_score].to_i)
+		match.update_attributes(winning_team_id: winning_team_id(params))
 		redirect_to root_path
-		flash[:notice] = "Match scores updated"
+		flash[:notice] = "Match Winner and scores updated. Well done #{MatchWinnerTeamNames.call(match)}!"
 	end
 
 	
 	private
+
+	def winning_team_id(params)
+		winning_teams_ids = [params[:game_1_winning_team_id].to_i, params[:game_2_winning_team_id].to_i, params[:game_3_winning_team_id].to_i]
+		
+		winning_teams_ids.each do |x|
+			id_index = winning_teams_ids.index(x)
+			id = winning_teams_ids.slice!(id_index)
+			return id if winning_teams_ids.any? { |y| y == id }
+		end
+	end
 
 	def team_1_player_ids
 		params[:match] && params[:match][:team_1] && params[:match][:team_1][:player_ids]

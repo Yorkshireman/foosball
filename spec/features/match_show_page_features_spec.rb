@@ -6,16 +6,22 @@ feature 'Match Show Page' do
 	before :each do
 		log_in test_league
 		visit new_match_path
-	end
-
-	it 'shows three games ready for scoring' do
 		select_player("team_1", test_league.players[0])
 		select_player("team_2", test_league.players[2])
 		select_player("team_2", test_league.players[3])
 		click_on 'Start Match'
+	end
+
+	it 'shows three games ready for scoring' do
 		expect(page).to have_content "Game 1"
 		expect(page).to have_content "Game 2"
 		expect(page).to have_content "Game 3"
+	end
+
+	it "shows team members" do
+		expect(page).to have_content "#{test_league.players[0].name}"
+		expect(page).to have_content "#{test_league.players[2].name}"
+		expect(page).to have_content "#{test_league.players[3].name}"
 	end
 
 	xit "has a winner select radio button and a winning-team score input field"

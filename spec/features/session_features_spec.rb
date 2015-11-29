@@ -1,6 +1,17 @@
 require 'rails_helper'
 
 feature 'Sessions' do
+	it 'can create a new league' do
+		visit new_league_path
+		fill_in 'league[name]', with: "Test League"
+		fill_in 'league[password]', with: "passwordpassword"
+		fill_in 'league[password_confirmation]', with: "passwordpassword"
+		click_on 'Create League'
+		expect(League.count).to eq 1
+		expect(League.last.name).to eq "Test League"
+		expect(page).to have_content "League successfully created. Start a Match!"
+	end
+
 	describe 'Logging in' do
 		let(:league) { create :league }
 		before(:each){ visit login_path }

@@ -1,9 +1,19 @@
 require 'rails_helper'
 
-feature 'static_pages' do
+feature 'Home Page' do
 	
 	context 'when on homepage' do
 		before(:each){ visit root_path }
+
+		it 'can go to new league page' do
+			click_on 'Create a New League'
+			expect(current_path).to eq new_league_path
+		end
+
+		it 'can go to login page' do
+			click_on 'League Login'
+			expect(current_path).to eq login_path
+		end
 
 		it "displays 'Create a New Match'" do
 			expect(page).to have_content "Create a New Match"

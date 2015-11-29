@@ -7,7 +7,7 @@ class LeaguesController < ApplicationController
 	  @league = League.new(league_params)
 	  if @league.save
 	  	redirect_to root_path
-	  	flash[:notice] = 'League has been successfully created'
+	  	flash[:notice] = 'League successfully created. Start a Match!'
 	  end
 	end
 

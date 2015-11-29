@@ -11,7 +11,7 @@ feature 'Leagues' do
 			expect{ click_on 'Create League' }.to change{ League.count }.by(1)
 			expect(League.last.name).to eq 'My First League'
 			expect(current_path).to eq root_path
-			expect(page).to have_content 'League has been successfully created'
+			expect(page).to have_content 'League successfully created. Start a Match!'
 		end
 	end
 end

@@ -27,13 +27,18 @@ class MatchesController < ApplicationController
 	end
 
 	def update
-		match = Match.find(params[:id])
-		match.games[0].update_attributes(winning_score: params[:game_1_score].to_i)
-		match.games[1].update_attributes(winning_score: params[:game_2_score].to_i)
-		match.games[2].update_attributes(winning_score: params[:game_3_score].to_i)
-		match.update_attributes(winning_team_id: winning_team_id(params))
-		redirect_to root_path
-		flash[:notice] = "Match Winner and scores updated. Well done #{MatchWinningTeamNames.call(match)}!"
+		@match = Match.find(params[:id])
+		if params[:game_1_score] == "" || params[:game_2_score] == "" || params[:game_3_score] == ""
+			flash[:alert] = "Cannot save Match with blank scores"
+			render :show
+		else
+			@match.games[0].update_attributes(winning_score: params[:game_1_score].to_i)
+			@match.games[1].update_attributes(winning_score: params[:game_2_score].to_i)
+			@match.games[2].update_attributes(winning_score: params[:game_3_score].to_i)
+			@match.update_attributes(winning_team_id: winning_team_id(params))
+			redirect_to root_path
+			flash[:notice] = "Match Winner and scores updated. Well done #{MatchWinningTeamNames.call(@match)}!"
+		end
 	end
 
 	

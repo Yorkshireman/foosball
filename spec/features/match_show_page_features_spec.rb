@@ -41,6 +41,18 @@ feature 'Match Show Page' do
 		expect(page).to have_content "Match Winner and scores updated. Well done #{MatchWinningTeamNames.call(Match.last)}!"
 	end
 
+	it "form submission with one or more blank scores not allowed" do
+		find('#game_1_score').find(:xpath, 'option[2]').select_option
+		find('#game_1_winning_team_id').find(:xpath, 'option[2]').select_option
+		find('#game_2_score').find(:xpath, 'option[3]').select_option
+		find('#game_2_winning_team_id').find(:xpath, 'option[3]').select_option
+		find('#game_3_winning_team_id').find(:xpath, 'option[2]').select_option
+		click_on 'Update'
+		expect(Match.last.winning_team_id).to eq nil
+		expect(current_path).to eq match_path(Match.last)
+		expect(page).to have_content "Cannot save Match with blank scores"
+	end
+
 
 	private
 

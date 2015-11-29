@@ -11,9 +11,7 @@ module MatchShowPageHelper
 
 	def player_names(team)
 		names = []
-		team.players.each do |player|
-			names << player.name
-		end
+		team.players.map{ |player| names << player.name }
 
 		if names.count == 1
 			return names[0]

@@ -10,7 +10,7 @@
 	<h3>Game 1</h3>
 	<%= f.fields_for :game_1 do |game_1_form| %>
 		<%= game_1_form.label "Winning Team's Score" %>
-		<%= select_tag(:game_1_score, options_for_select([['6', 6], ['7', 7], ['8', 8], ['9', 9], ['10', 10]])) %>
+		<%= select_tag(:game_1_score, options_for_select([['6', 6], ['7', 7], ['8', 8], ['9', 9], ['10', 10]]), include_blank: true) %>
 		<%= game_1_form.label "Winning Team" %>
 		<%= select_tag(:game_1_winning_team_id, options_for_select(match_teams(@match))) %>
 	<% end %>
@@ -18,7 +18,7 @@
 	<h3>Game 2</h3>
 	<%= f.fields_for :game_2 do |game_2_form| %>
 		<%= game_2_form.label "Winning Team's Score" %>
-		<%= select_tag(:game_2_score, options_for_select([['6', 6], ['7', 7], ['8', 8], ['9', 9], ['10', 10]])) %>
+		<%= select_tag(:game_2_score, options_for_select([['6', 6], ['7', 7], ['8', 8], ['9', 9], ['10', 10]]), include_blank: true) %>
 		<%= game_2_form.label "Winning Team" %>
 		<%= select_tag(:game_2_winning_team_id, options_for_select(match_teams(@match))) %>
 	<% end %>
@@ -26,7 +26,7 @@
 	<h3>Game 3</h3>
 	<%= f.fields_for :game_3 do |game_3_form| %>
 		<%= game_3_form.label "Winning Team's Score" %>
-		<%= select_tag(:game_3_score, options_for_select([['6', 6], ['7', 7], ['8', 8], ['9', 9], ['10', 10]])) %>
+		<%= select_tag(:game_3_score, options_for_select([['6', 6], ['7', 7], ['8', 8], ['9', 9], ['10', 10]]), include_blank: true) %>
 		<%= game_3_form.label "Winning Team" %>
 		<%= select_tag(:game_3_winning_team_id, options_for_select(match_teams(@match))) %>
 	<% end %>

@@ -26,11 +26,11 @@ feature 'Match Show Page' do
 	end
 
 	it "form submission updates match scores, match winning_team, and takes you to home page" do
-		find('#game_1_score').find(:xpath, 'option[1]').select_option
+		find('#game_1_score').find(:xpath, 'option[2]').select_option
 		find('#game_1_winning_team_id').find(:xpath, 'option[2]').select_option
-		find('#game_2_score').find(:xpath, 'option[2]').select_option
+		find('#game_2_score').find(:xpath, 'option[3]').select_option
 		find('#game_2_winning_team_id').find(:xpath, 'option[1]').select_option
-		find('#game_3_score').find(:xpath, 'option[1]').select_option
+		find('#game_3_score').find(:xpath, 'option[2]').select_option
 		find('#game_3_winning_team_id').find(:xpath, 'option[2]').select_option
 		click_on 'Update'
 		expect(Match.last.games[0].winning_score).to eq 6

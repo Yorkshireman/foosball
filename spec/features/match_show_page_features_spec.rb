@@ -38,7 +38,7 @@ feature 'Match Show Page' do
 		expect(Match.last.games[0].winning_score).to eq 6
 		expect(Match.last.winning_team_id).to eq Match.last.teams[1].id
 		expect(current_path).to eq root_path
-		expect(page).to have_content "Match Winner and scores updated. Well done #{MatchWinnerTeamNames.call(Match.last)}!"
+		expect(page).to have_content "Match Winner and scores updated. Well done #{MatchWinningTeamNames.call(Match.last)}!"
 	end
 
 

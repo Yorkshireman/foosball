@@ -33,7 +33,7 @@ class MatchesController < ApplicationController
 		match.games[2].update_attributes(winning_score: params[:game_3_score].to_i)
 		match.update_attributes(winning_team_id: winning_team_id(params))
 		redirect_to root_path
-		flash[:notice] = "Match Winner and scores updated. Well done #{MatchWinnerTeamNames.call(match)}!"
+		flash[:notice] = "Match Winner and scores updated. Well done #{MatchWinningTeamNames.call(match)}!"
 	end
 
 	

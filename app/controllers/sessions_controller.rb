@@ -15,7 +15,10 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-  	if log_out && current_league == nil
+  	if current_league == nil
+  		redirect_to root_path
+  		flash[:alert] = "You are already logged out!"
+  	elsif log_out
 	  	redirect_to root_path
 	  	flash[:notice] = "You have logged out. See you next time!"
 	  end

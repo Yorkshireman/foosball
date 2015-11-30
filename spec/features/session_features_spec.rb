@@ -42,13 +42,22 @@ feature 'Sessions' do
 		end
 	end
 
-	it 'can logout' do
-		visit login_path
-		fill_in 'session[name]', with: "#{league.name}"
-		fill_in 'session[password]', with: "#{league.password}"
-		click_on 'Log in'
-		click_on 'Logout'
-		expect(current_path).to eq root_path
-		expect(page).to have_content "You have logged out. See you next time!"
+	describe 'Logging out' do
+		it 'can logout' do
+			visit login_path
+			fill_in 'session[name]', with: "#{league.name}"
+			fill_in 'session[password]', with: "#{league.password}"
+			click_on 'Log in'
+			click_on 'Logout'
+			expect(current_path).to eq root_path
+			expect(page).to have_content "You have logged out. See you next time!"
+		end
+
+		it 'user is presented with a notice if they try to logout whilst already logged out' do
+			visit root_path
+			click_on 'Logout'
+			expect(current_path).to eq root_path
+			expect(page).to have_content "You are already logged out!"
+		end
 	end
 end

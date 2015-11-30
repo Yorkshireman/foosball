@@ -1,8 +1,13 @@
 class MatchesController < ApplicationController
 	def new
-		@player = Player.new
-		@players = Player.all
-		@match = Match.new
+		if current_league == nil
+			redirect_to login_path
+			flash[:alert] = "You must login or create a new league before continuing"
+		else
+			@player = Player.new
+			@players = Player.all
+			@match = Match.new
+		end
 	end
 
 	def create

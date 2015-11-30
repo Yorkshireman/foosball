@@ -9,6 +9,14 @@ feature 'New Match Features' do
 		visit new_match_path
 	end
 
+	it 'user is redirected to login page if they try to navigate to new_match page' do
+		visit root_path
+		click_on 'Logout'
+		click_on 'Create a New Match'
+		expect(current_path).to eq login_path
+		expect(page).to have_content "You must login or create a new league before continuing"
+	end
+
 	it "user can create a new match using existing players, creating new unique Teams of 1 person per team" do
 		select_player("team_1", test_league.players[0])
 		select_player("team_2", test_league.players[1])

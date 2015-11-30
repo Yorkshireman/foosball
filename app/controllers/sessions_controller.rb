@@ -13,4 +13,11 @@ class SessionsController < ApplicationController
 	  	render :new
 		end
   end
+
+  def destroy
+  	if log_out && current_league == nil
+	  	redirect_to root_path
+	  	flash[:notice] = "You have logged out. See you next time!"
+	  end
+  end
 end
